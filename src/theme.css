@@ -1,18 +1,22 @@
 :root {
-    --foreground: #f2eeff;
-    --background: #001f3f;
-    --primary-color: #364ae0;
-    --secondary-color: #adb5bd;
+    --foreground-color: #f2eeff;
+    --background-color: #001f3f;
+    --primary-color: #001f3f;
+    --secondary-color: #d0d0d0;
+
+    --default-border: 2px solid currentColor;
 
     --default-border-radius: 1em;
     --default-padding: 1em 2em;
+
+    --default-font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 @media (prefers-color-scheme: light) {
     :root {
-        --foreground: #001f3f;
-        --background: #ddddf7;
-        --primary-color: #0048ff;
-        --secondary-color: #6c757d;
+        --foreground-color: #001f3f;
+        --background-color: #fff;
+        --primary-color: #ddddf7;
+        --secondary-color: #003d7a;
     }
 }

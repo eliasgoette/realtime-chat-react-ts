@@ -1,7 +1,8 @@
 @import url("/src/theme.css");
 
 .header {
-    border: 2px solid currentColor;
+    color: var(--primary-color);
+    background-color: var(--secondary-color);
     border-radius: var(--default-border-radius);
     padding: var(--default-padding);
 }
