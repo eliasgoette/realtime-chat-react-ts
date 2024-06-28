@@ -1,0 +1,6 @@
+@import url("/src/theme.css");
+
+body {
+    color: var(--foreground);
+    background-color: var(--background);
+}

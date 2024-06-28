@@ -1,0 +1,18 @@
+:root {
+    --foreground: #f2eeff;
+    --background: #001f3f;
+    --primary-color: #364ae0;
+    --secondary-color: #adb5bd;
+
+    --default-border-radius: 1em;
+    --default-padding: 1em 2em;
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --foreground: #001f3f;
+        --background: #ddddf7;
+        --primary-color: #0048ff;
+        --secondary-color: #6c757d;
+    }
+}
