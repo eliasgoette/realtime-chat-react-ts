@@ -14,13 +14,10 @@ type UserData = {
 };
 
 const AccountCircle: FC = () => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [currentUserDoc, setCurrentUserDoc]: [UserData | null, Dispatch<SetStateAction<UserData | null>>] = useState<UserData | null>(null);
 
     useEffect(() => {
         const unsubscribe = getAuthState((user) => {
-            setIsAuthenticated(user !== null);
-
             if (user !== null) {
                 const userRef = ref(database, `/users/${user.uid}`);
                 onValue(userRef, (snapshot: DataSnapshot) => {
@@ -55,7 +52,7 @@ const AccountCircle: FC = () => {
     }, []);
 
     const handleAuthAction = async () => {
-        if (isAuthenticated) {
+        if (currentUserDoc) {
             await firebaseSignOut();
         } else {
             await googleSignIn();
@@ -65,13 +62,13 @@ const AccountCircle: FC = () => {
     return (
         <div className={styles.accountCircle} onClick={handleAuthAction}>
             <div className={styles.photoArea}>
-                {isAuthenticated && currentUserDoc ? (
+                {currentUserDoc ? (
                     <img className={styles.profilePhoto} src={currentUserDoc.photoUrl} alt="Profile photo" />
                 ) : (
                     <div className={styles.placeholderPhoto}></div>
                 )}
             </div>
-            <p>{isAuthenticated ? 'Sign out' : 'Sign in'}</p>
+            <p>{currentUserDoc ? 'Sign out' : 'Sign in'}</p>
         </div>
     );
 };
