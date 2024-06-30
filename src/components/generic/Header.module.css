@@ -7,6 +7,11 @@
     border-radius: var(--default-border-radius);
     padding: var(--default-padding);
 
+    position: sticky;
+    top: 0;
+
+    z-index: 100;
+
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;

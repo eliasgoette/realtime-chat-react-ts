@@ -1,6 +1,8 @@
 :root {
     --foreground-color: #f2eeff;
+    --foreground-light-color: #34608c;
     --background-color: #001f3f;
+    --background-elevated-color: #0a2e53;
     --primary-color: #001f3f;
     --secondary-color: #d0d0d0;
 
@@ -15,7 +17,9 @@
 @media (prefers-color-scheme: light) {
     :root {
         --foreground-color: #001f3f;
+        --foreground-light-color: #6887a5;
         --background-color: #fff;
+        --background-elevated-color: #ecf5ff;
         --primary-color: #ddddf7;
         --secondary-color: #003d7a;
     }
