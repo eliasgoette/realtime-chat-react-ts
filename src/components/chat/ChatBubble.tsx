@@ -4,7 +4,7 @@ import styles from "./ChatBubble.module.css";
 export type chatMessage = {
     content : string,
     timestamp : number,
-    authorUid : string
+    authorId : string
 }
 
 const ChatBubble : FC<chatMessage> = (message) => {
