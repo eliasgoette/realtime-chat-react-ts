@@ -1,15 +1,20 @@
 import React, { FC } from "react";
 import styles from "./ChatBubble.module.css";
 
-export type chatMessage = {
+export type ChatMessage = {
     content : string,
     timestamp : number,
     authorId : string
 }
 
-const ChatBubble : FC<chatMessage> = (message) => {
+interface ChatBubbleProps {
+    message : ChatMessage,
+    stickToRight : boolean | null
+}
+
+const ChatBubble : FC<ChatBubbleProps> = ({message, stickToRight}) => {
     return(
-        <div className={styles.chatBubble}>
+        <div className={`${styles.chatBubble} ${(stickToRight) ? styles.right : styles.left}`}>
             <p className={styles.content}>{message.content}</p>
             <p className={styles.timestamp}>{message.timestamp}</p>
         </div>

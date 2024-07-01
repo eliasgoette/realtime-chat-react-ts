@@ -9,12 +9,3 @@
     padding-top: 3em;
     padding-bottom: 3em;
 }
-
-.chatArea > :nth-child(odd) {
-    border-bottom-left-radius: 0 !important;
-}
-
-.chatArea > :nth-child(even) {
-    align-self: flex-end;
-    border-bottom-right-radius: 0 !important;
-}

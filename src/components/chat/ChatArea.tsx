@@ -1,6 +1,6 @@
-import React, { FC, SetStateAction, useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import styles from "./ChatArea.module.css";
-import ChatBubble, { chatMessage } from "./ChatBubble";
+import ChatBubble, { ChatMessage } from "./ChatBubble";
 import { DataSnapshot, onValue, ref } from "firebase/database";
 import { database } from "../../services/firebase";
 
@@ -9,7 +9,7 @@ interface ChatAreaProps {
 }
 
 const ChatArea : FC<ChatAreaProps> = ({chatId, ...props}) => {
-    const [messages, setMessages] = useState<chatMessage[]>([]);
+    const [messages, setMessages] = useState<ChatMessage[]>([]);
 
     useEffect(() => {
         const messageRef = ref(database, `/chats/${chatId}`);
@@ -19,7 +19,7 @@ const ChatArea : FC<ChatAreaProps> = ({chatId, ...props}) => {
     }, [chatId]);
 
     const displayLatestMessages : (snapshot : DataSnapshot) => void = (snapshot) => {
-        let latestMessages : chatMessage[] = snapshot.val() ?? [];
+        let latestMessages : ChatMessage[] = snapshot.val() ?? [];
         setMessages(latestMessages);
     };
 
@@ -73,7 +73,7 @@ const ChatArea : FC<ChatAreaProps> = ({chatId, ...props}) => {
 
     return(
         <div className={styles.chatArea}>
-            {messages.map((m, i) => <ChatBubble {...m} key={i}/>)}
+            {messages.map((m, i) => <ChatBubble message={m} stickToRight={(m.authorId == "U1")} key={i}/>)}
         </div>
     );
 }

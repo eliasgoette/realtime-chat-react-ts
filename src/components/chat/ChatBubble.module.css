@@ -15,6 +15,15 @@
     max-width: 70%;
 }
 
+.left {
+    border-bottom-left-radius: 0;
+}
+
+.right {
+    align-self: flex-end;
+    border-bottom-right-radius: 0;
+}
+
 .content, .timestamp {
     font-weight: lighter;
 }
