@@ -1,11 +1,17 @@
 @import url("/src/theme.css");
 
-.styledButton {
+.styledInput {
     color: var(--primary-color);
     background-color: var(--secondary-color);
 
     padding: var(--default-padding);
     
     border-radius: 2em;
-    border: var(--default-border);
+    border: none;
+    transition: 0.3s;
+}
+
+.styledInput:hover {
+    filter: brightness(110%);
+    box-shadow: var(--box-hover-shadow);
 }

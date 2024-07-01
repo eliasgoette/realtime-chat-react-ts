@@ -9,7 +9,7 @@
     animation-timeline: view();
     animation-range: entry 0% cover 20%;
 
-    box-shadow: 5px 5px 10px #00000035;
+    box-shadow: var(--default-box-shadow);
 
     margin: 1em 0;
     max-width: 70%;

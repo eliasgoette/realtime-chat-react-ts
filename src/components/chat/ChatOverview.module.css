@@ -1,0 +1,16 @@
+@import url("/src/theme.css");
+
+.newChat {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.newChat > * {
+    margin-right: 1em;
+}
+
+.chatOverview {
+    padding: var(--default-padding);
+}
