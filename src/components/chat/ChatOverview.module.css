@@ -1,5 +1,12 @@
 @import url("/src/theme.css");
 
+.chatOverview {
+    padding: var(--default-padding);
+    margin-top: 1em;
+    background-color: #00000033;
+    border-radius: var(--default-border-radius);
+}
+
 .newChat {
     width: 100%;
     display: flex;
@@ -13,4 +20,33 @@
 
 .chatOverview {
     padding: var(--default-padding);
+}
+
+.chatList {
+    color: var(--secondary-color);
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.selectedChat {
+    color: var(--foreground-color);
+    box-shadow: var(--default-box-shadow);
+}
+
+.selectedChat, .availableChat {
+    display: inline-block;
+    width: fit-content;
+
+    margin: 0.5em 0.5em;
+    padding: var(--default-padding);
+    border-radius: var(--default-border-radius);
+
+    background-color: var(--background-color);
+}
+
+.selectedChat:hover, .availableChat:hover {
+    filter: var(--default-hover-filter);
 }

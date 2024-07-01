@@ -3,6 +3,8 @@ import styles from "./ChatArea.module.css";
 import ChatBubble, { ChatMessage } from "./ChatBubble";
 import { DataSnapshot, onValue, ref } from "firebase/database";
 import { database } from "../../services/firebase";
+import { User } from "firebase/auth";
+import { getAuthState } from "../../services/auth";
 
 interface ChatAreaProps {
     chatId : string
@@ -10,6 +12,11 @@ interface ChatAreaProps {
 
 const ChatArea : FC<ChatAreaProps> = ({chatId, ...props}) => {
     const [messages, setMessages] = useState<ChatMessage[]>([]);
+    const [currentUser, setCurrentUser] = useState<User | null>();
+
+    useEffect(() => {
+        getAuthState((user) => setCurrentUser(user));
+    }, []);
 
     useEffect(() => {
         const messageRef = ref(database, `/chats/${chatId}`);
@@ -73,7 +80,7 @@ const ChatArea : FC<ChatAreaProps> = ({chatId, ...props}) => {
 
     return(
         <div className={styles.chatArea}>
-            {messages.map((m, i) => <ChatBubble message={m} stickToRight={(m.authorId == "U1")} key={i}/>)}
+            {messages.map((m, i) => <ChatBubble message={m} stickToRight={(m.authorId == currentUser?.uid)} key={i}/>)}
         </div>
     );
 }

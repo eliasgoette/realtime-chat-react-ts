@@ -12,6 +12,6 @@
 }
 
 .styledInput:hover {
-    filter: brightness(110%);
+    filter: var(--default-hover-filter);
     box-shadow: var(--box-hover-shadow);
 }
