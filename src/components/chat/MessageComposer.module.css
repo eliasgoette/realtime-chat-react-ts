@@ -1,0 +1,19 @@
+@import url("/src/theme.css");
+
+.messageComposer {
+    display: flex;
+    flex-flow: row wrap;
+
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    padding: var(--default-padding);
+
+    z-index: 95;
+}
+
+.messageComposer > * {
+    margin: 1em;
+}
