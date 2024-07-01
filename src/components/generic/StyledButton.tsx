@@ -3,12 +3,13 @@ import styles from "./StyledButton.module.css";
 
 interface StyledButtonProps {
     text : string,
-    iconName? : string
+    iconName? : string,
+    callback? : () => void
 }
 
 const StyledButton : FC<StyledButtonProps> = ({...props}) => {
     return(
-        <button className={styles.styledButton}>{props.text}</button>
+        <button className={styles.styledButton} onClick={props.callback}>{props.text}</button>
     );
 }
 
