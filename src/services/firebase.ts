@@ -1,17 +1,17 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "firebase/auth";
-import { getDatabase, ref, set, onValue } from "firebase/database";
+import { getDatabase, ref, set, onValue, push } from "firebase/database";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA1hMvNob94ri7pf8YHqeGiYKW2WwPhPAg",
-  authDomain: "realtime-chat-react-ts.firebaseapp.com",
-  projectId: "realtime-chat-react-ts",
-  storageBucket: "realtime-chat-react-ts.appspot.com",
-  messagingSenderId: "854244581350",
-  appId: "1:854244581350:web:47c45f35a33652aa5d0027",
-  measurementId: "G-5BVN2BNFLR",
-  databaseURL: "https://realtime-chat-react-ts-default-rtdb.firebaseio.com"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASURMENT_ID,
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL
 };
 
 const app = initializeApp(firebaseConfig);
@@ -22,4 +22,4 @@ const database = getDatabase(app);
 export default app;
 export { analytics};
 export { auth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut };
-export { database, ref, set, onValue };
+export { database, ref, set, onValue, push };

@@ -3,8 +3,7 @@ import './App.css';
 import AppHeader from './components/generic/Header';
 import ChatArea from './components/chat/ChatArea';
 import StyledButton from './components/generic/StyledButton';
-import { push, ref, set } from 'firebase/database';
-import { database } from './services/firebase';
+import database, { ref, set, push } from './services/database';
 
 function App() {
   const createChat = () => {
