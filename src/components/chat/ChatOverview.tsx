@@ -32,26 +32,27 @@ const ChatOverview: FC<ChatOverviewProps> = ({selectChatHandler, ...props}) => {
 
   const createChat = () => {
     const chatRef = ref(database, `/chats/${newChatName}`);
+  
     push(chatRef).then((newChatRef) => {
       getAuthState((user) => {
-        const initialChat = {
-          0: {
-            content: 'Welcome to the chat!',
-            timestamp: new Date().toISOString(),
-            authorId: user?.uid ?? 'User undefined'
-          }
+        const initialMessageRef = push(chatRef);
+  
+        const initialChatMessage = {
+          content: 'Welcome to the chat!',
+          timestamp: new Date().toISOString(),
+          authorId: user?.uid ?? 'User undefined'
         };
-    
-        set(chatRef, { ...initialChat }).then(() => {
+  
+        set(initialMessageRef, initialChatMessage).then(() => {
           setNewChatName('');
         }).catch((error) => {
           console.error(error);
         });
       });
-    }).catch(error => {
+    }).catch((error) => {
       console.error(error);
     });
-  };
+  };  
 
   const handleSelectedChatChanged = (chat : Chat) => {
     selectChatHandler(chat.id);
@@ -71,7 +72,7 @@ const ChatOverview: FC<ChatOverviewProps> = ({selectChatHandler, ...props}) => {
       <h2>Chats</h2>
       <div className={styles.chatList}>
         {availableChats.map((chat, i) => (
-          <div className={(selectedChat?.id == chat.id) ? styles.selectedChat : styles.availableChat} key={i} onClick={() => handleSelectedChatChanged(chat)}>{chat.id}</div>
+          <div className={(selectedChat?.id === chat.id) ? styles.selectedChat : styles.availableChat} key={i} onClick={() => handleSelectedChatChanged(chat)}>{chat.id}</div>
         ))}
       </div>
     </div>
