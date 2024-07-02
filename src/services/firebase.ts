@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "firebase/auth";
-import { getDatabase, ref, set, onValue, push } from "firebase/database";
+import { getDatabase, ref, set, onValue, push, update, remove } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -22,4 +22,4 @@ const database = getDatabase(app);
 export default app;
 export { analytics};
 export { auth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut };
-export { database, ref, set, onValue, push };
+export { database, ref, set, onValue, push, update, remove };

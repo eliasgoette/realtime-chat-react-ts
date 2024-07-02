@@ -4,7 +4,11 @@
 }
 
 .selectedChat, .availableChat {
-    display: inline-block;
+    display: inline-flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
+
     width: fit-content;
 
     margin: 0.5em;
@@ -12,6 +16,8 @@
     border-radius: var(--default-border-radius);
 
     background-color: var(--background-color);
+
+    gap: 1em;
 }
 
 .selectedChat:hover, .availableChat:hover {

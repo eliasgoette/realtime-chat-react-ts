@@ -1,6 +1,6 @@
 
 import { DataSnapshot, Query } from "firebase/database";
-import { database, ref, set, onValue, push } from "./firebase";
+import { database, ref, set, onValue, push, update, remove } from "./firebase";
 
 const writeUserData = (userId: string, name: string, email: string, imageUrl: string, initialChatIds: string[]) => {
     set(
@@ -15,4 +15,4 @@ const writeUserData = (userId: string, name: string, email: string, imageUrl: st
 const checkValue = (query : Query, callback : (snapshot : DataSnapshot) => void) => onValue(query, callback);
 
 export default database;
-export { writeUserData, checkValue, ref, set, push };
+export { writeUserData, checkValue, ref, set, push, update, remove };
