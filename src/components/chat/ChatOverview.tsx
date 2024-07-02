@@ -66,7 +66,7 @@ const ChatOverview: FC<ChatOverviewProps> = ({selectChatHandler, ...props}) => {
           value={newChatName}
           valueChangedHandler={e => setNewChatName(e.target.value)}
         />
-        <StyledButton text="Create chat" callback={createChat} />
+        <StyledButton text="Create chat" clickHandler={createChat} />
       </div>
       <h2>Chats</h2>
       <div className={styles.chatList}>

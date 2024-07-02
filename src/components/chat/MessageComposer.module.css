@@ -3,6 +3,8 @@
 .messageComposer {
     display: flex;
     flex-flow: row wrap;
+    justify-content: flex-end;
+    align-items: end;
 
     position: fixed;
     left: 0;

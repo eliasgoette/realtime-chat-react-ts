@@ -12,6 +12,10 @@ function App() {
     setSelectedChatId(selectedChatId);
   }
 
+  const onSendMessage = (message : string | null) => {
+    console.log(message ?? 'Empty message');
+  }
+
   return (
     <div className="App">
       <AppHeader/>
@@ -21,7 +25,7 @@ function App() {
         <ChatArea chatId={selectedChatId}/>
         : <h2>Please select a chat</h2>
       }
-      <MessageComposer/>
+      <MessageComposer sendMessageHandler={onSendMessage}/>
     </div>
   );
 }
