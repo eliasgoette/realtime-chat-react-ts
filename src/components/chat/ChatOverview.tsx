@@ -6,8 +6,9 @@ import { database } from "../../services/firebase";
 import StyledTextBox from "../generic/inputs/StyledTextBox";
 import { ChatMessage } from "./ChatBubble";
 import { getAuthState } from "../../services/auth";
+import ChatTile from "./ChatTile";
 
-interface Chat {
+export interface Chat {
   id : string,
   messages : ChatMessage[] | null
 }
@@ -74,7 +75,7 @@ const ChatOverview: FC<ChatOverviewProps> = ({selectChatHandler, ...props}) => {
       <h2>Chats</h2>
       <div className={styles.chatList}>
         {availableChats.map((chat, i) => (
-          <div className={(selectedChat?.id === chat.id) ? styles.selectedChat : styles.availableChat} key={i} onClick={() => handleSelectedChatChanged(chat)}>{chat.id}</div>
+          <ChatTile chat={chat} isSelected={(chat.id === selectedChat?.id)} clickHandler={handleSelectedChatChanged}/>
         ))}
       </div>
     </div>
