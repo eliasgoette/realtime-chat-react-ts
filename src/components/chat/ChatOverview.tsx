@@ -32,29 +32,32 @@ const ChatOverview: FC<ChatOverviewProps> = ({selectChatHandler, ...props}) => {
   }, []);
 
   const createChat = () => {
-    const chatRef = ref(database, `/chats/${newChatName}`);
-  
-    push(chatRef).then((newChatRef) => {
-      getAuthState((user) => {
-        if(user) {
-          const initialMessageRef = push(chatRef);
+    if(newChatName && newChatName.trim() !== '') {
+
+      const chatRef = ref(database, `/chats/${newChatName}`);
     
-          const initialChatMessage : ChatMessage = {
-            content: 'Welcome to the chat!',
-            timestamp: Date.now(),
-            authorId: user.uid
-          };
-    
-          set(initialMessageRef, initialChatMessage).then(() => {
-            setNewChatName('');
-          }).catch((error) => {
-            console.error(error);
-          });
-        }
+      push(chatRef).then((newChatRef) => {
+        getAuthState((user) => {
+          if(user) {
+            const initialMessageRef = push(chatRef);
+      
+            const initialChatMessage : ChatMessage = {
+              content: 'Welcome to the chat!',
+              timestamp: Date.now(),
+              authorId: user.uid
+            };
+      
+            set(initialMessageRef, initialChatMessage).then(() => {
+              setNewChatName('');
+            }).catch((error) => {
+              console.error(error);
+            });
+          }
+        });
+      }).catch((error) => {
+        console.error(error);
       });
-    }).catch((error) => {
-      console.error(error);
-    });
+    }
   };  
 
   const handleSelectedChatChanged = (chat : Chat) => {

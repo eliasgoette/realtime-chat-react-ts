@@ -5,6 +5,8 @@
     --background-elevated-color: #0a2e53;
     --primary-color: #001f3f;
     --secondary-color: #d0d0d0;
+    --input-primary-color: #001f3f;
+    --input-secondary-color: #d0d0d0;
 
     --default-box-shadow: 5px 5px 10px #00000035;
     --box-hover-shadow: 2px 2px 5px #ffffff35;
@@ -27,6 +29,8 @@
         --background-elevated-color: #ecf5ff;
         --primary-color: #ddddf7;
         --secondary-color: #003d7a;
+        --input-primary-color: #003d7a;
+        --input-secondary-color: #f7fbff;
 
         --box-hover-shadow: 2px 2px 5px #00000035;
     }

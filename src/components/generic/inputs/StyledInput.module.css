@@ -1,8 +1,8 @@
 @import url("/src/theme.css");
 
 .styledInput {
-    color: var(--primary-color);
-    background-color: var(--secondary-color);
+    color: var(--input-primary-color);
+    background-color: var(--input-secondary-color);
 
     padding: var(--default-padding);
     
