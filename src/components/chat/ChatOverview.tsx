@@ -35,19 +35,21 @@ const ChatOverview: FC<ChatOverviewProps> = ({selectChatHandler, ...props}) => {
   
     push(chatRef).then((newChatRef) => {
       getAuthState((user) => {
-        const initialMessageRef = push(chatRef);
-  
-        const initialChatMessage = {
-          content: 'Welcome to the chat!',
-          timestamp: new Date().toISOString(),
-          authorId: user?.uid ?? 'User undefined'
-        };
-  
-        set(initialMessageRef, initialChatMessage).then(() => {
-          setNewChatName('');
-        }).catch((error) => {
-          console.error(error);
-        });
+        if(user) {
+          const initialMessageRef = push(chatRef);
+    
+          const initialChatMessage : ChatMessage = {
+            content: 'Welcome to the chat!',
+            timestamp: Date.now(),
+            authorId: user.uid
+          };
+    
+          set(initialMessageRef, initialChatMessage).then(() => {
+            setNewChatName('');
+          }).catch((error) => {
+            console.error(error);
+          });
+        }
       });
     }).catch((error) => {
       console.error(error);
