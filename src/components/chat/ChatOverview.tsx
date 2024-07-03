@@ -89,14 +89,15 @@ const ChatOverview: FC<ChatOverviewProps> = ({ selectChatHandler, ...props }) =>
       </div>
       <h2>Chats</h2>
       <div className={styles.chatList}>
-        {availableChats.map((chat, i) => (
+        {
+        (availableChats.length > 0) ? availableChats.map((chat, i) => (
           <ChatTile
             chat={chat}
             isSelected={chat.id === (selectedChat?.id ?? '')}
             clickHandler={handleSelectedChatChanged}
             key={i}
           />
-        ))}
+        )) : <p>No chats yet.</p>}
       </div>
     </div>
   );
