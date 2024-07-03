@@ -29,6 +29,13 @@ const ChatArea: FC<ChatAreaProps> = ({ chatId, ...props }) => {
         const data = snapshot.val();
         const latestMessages: ChatMessage[] = data ? Object.values(data) : [];
         setMessages(latestMessages);
+
+        setTimeout(() => {
+            window.scrollTo({
+                top: document.documentElement.scrollHeight,
+                behavior: 'smooth'
+            });
+        }, 200);
     };
 
     return (
