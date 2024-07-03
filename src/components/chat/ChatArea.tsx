@@ -19,7 +19,7 @@ const ChatArea: FC<ChatAreaProps> = ({ chatId, ...props }) => {
     }, []);
 
     useEffect(() => {
-        const messageRef = ref(database, `/chats/${chatId}`);
+        const messageRef = ref(database, `/chats/${chatId}/messages`);
         const unsubscribe = onValue(messageRef, displayLatestMessages);
 
         return () => unsubscribe();

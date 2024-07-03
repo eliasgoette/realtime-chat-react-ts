@@ -22,7 +22,7 @@ function App() {
   }
 
   const onSendMessage = (messageContent : string | null) => {
-    const chatRef = ref(database, `/chats/${selectedChatId}`);
+    const chatRef = ref(database, `/chats/${selectedChatId}/messages`);
     const messageRef = push(chatRef);
 
     if(messageContent) {

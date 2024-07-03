@@ -4,10 +4,6 @@ import StyledTextBox from "../generic/inputs/StyledTextBox";
 import StyledButton from "../generic/inputs/StyledButton";
 
 
-
-// TODO: Add logic to send messages
-
-
 interface MessageComposerProps {
     sendMessageHandler : (message : string | null) => void
 }

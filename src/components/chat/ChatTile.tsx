@@ -18,7 +18,7 @@ const ChatTile: FC<ChatTileProps> = ({ chat, isSelected, clickHandler }) => {
 
     return (
         <div className={isSelected ? styles.selectedChat : styles.availableChat} onClick={() => clickHandler(chat)}>
-            <a>{chat.id}</a>
+            <a>{chat.name}</a>
             <StyledButton text="Delete" clickHandler={deleteChat} />
         </div>
     );
