@@ -58,7 +58,7 @@ const ChatOverview: FC<ChatOverviewProps> = ({ selectChatHandler, ...props }) =>
             const messageRef = push(ref(database, `/chats/${newChatKey}/messages`));
             const message: ChatMessage = {
               content: "Welcome to the chat!",
-              authorId: "bot",
+              authorId: "- Bot",
               timestamp: Date.now()
             }
 

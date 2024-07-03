@@ -26,11 +26,11 @@
     animation-name: appearRight;
 }
 
-.content, .timestamp {
+.content, .information {
     font-weight: lighter;
 }
 
-.timestamp {
+.information {
     font-size: x-small;
     color: var(--foreground-light-color);
 }
