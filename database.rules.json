@@ -1,6 +1,14 @@
 {
   "rules": {
-    ".read": false,
-    ".write": false
+    "chats": {
+      ".read": "auth != null",
+      ".write": "auth != null"
+    },
+  	"users": {
+    	"$uid": {
+      	".read": "auth != null",
+      	".write": "$uid === auth.uid"
+  	  }
+	  }
   }
 }
