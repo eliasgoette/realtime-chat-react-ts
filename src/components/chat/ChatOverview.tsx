@@ -1,17 +1,24 @@
 import React, { FC, useState, useEffect } from "react";
 import styles from "./ChatOverview.module.css";
 import StyledButton from "../generic/inputs/StyledButton";
-import { push, ref, set, onValue } from "firebase/database";
-import { database } from "../../services/firebase";
+import database, { push, ref, set, checkValue } from "../../services/database";
 import StyledTextBox from "../generic/inputs/StyledTextBox";
 import { ChatMessage } from "./ChatBubble";
 import ChatTile from "./ChatTile";
+import { User } from "firebase/auth";
 import { getAuthState } from "../../services/auth";
 
-export interface Chat {
+export type Chat = {
   id: string;
   name: string;
   messages: ChatMessage[] | null;
+}
+
+export type UserData = {
+  chats: string[];
+  email: string;
+  photoUrl: string;
+  username: string;
 }
 
 interface ChatOverviewProps {
@@ -20,26 +27,52 @@ interface ChatOverviewProps {
 
 const ChatOverview: FC<ChatOverviewProps> = ({ selectChatHandler, ...props }) => {
   const [newChatName, setNewChatName] = useState<string>('');
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [ownedChatIds, setOwnedChatIds] = useState<string[]>([]);
   const [availableChats, setAvailableChats] = useState<Chat[]>([]);
   const [selectedChat, setSelectedChat] = useState<Chat | null>(null);
 
   useEffect(() => {
-    const chatRef = ref(database, '/chats');
-    onValue(chatRef, (snapshot) => {
-      const data = snapshot.val();
-      const chats: Chat[] = data ? Object.keys(data).map(key => ({
-        id: key,
-        name: data[key].name,
-        messages: data[key].messages ? Object.values(data[key].messages) : null
-      })) : [];
-      setAvailableChats(chats);
+    getAuthState((user) => {
+      setCurrentUser(user);
     });
   }, []);
+
+  useEffect(() => {
+    if (currentUser) {
+      const userRef = ref(database, `/users/${currentUser.uid}`);
+      checkValue(userRef, (snapshot) => {
+        const userData: UserData = snapshot.val();
+        const chatIds = userData.chats || [];
+        setOwnedChatIds(chatIds);
+      });
+    }
+  }, [currentUser]);
+
+  useEffect(() => {
+    if (ownedChatIds.length > 0) {
+      const chatRef = ref(database, '/chats');
+      checkValue(chatRef, (snapshot) => {
+        const data = snapshot.val();
+        const chats: Chat[] = data ? Object.keys(data).map(key => ({
+          id: key,
+          name: data[key].name,
+          messages: data[key].messages ? Object.values(data[key].messages) : null
+        })) : [];
+
+        const filteredChats = chats.filter((chat) => ownedChatIds.includes(chat.id));
+
+        setAvailableChats(filteredChats);
+      });
+    } else {
+      setAvailableChats([]);
+    }
+  }, [ownedChatIds]);
 
   const createChat = () => {
     if (newChatName && newChatName.trim() !== '') {
       const chatRef = ref(database, '/chats');
-      const newChatKey = push(chatRef).key; // Generate a new key for the chat
+      const newChatKey = push(chatRef).key;
       if (newChatKey) {
         const newChatData = {
           name: newChatName,
@@ -47,20 +80,23 @@ const ChatOverview: FC<ChatOverviewProps> = ({ selectChatHandler, ...props }) =>
         };
 
         const newChatRef = ref(database, `/chats/${newChatKey}`);
-
         set(newChatRef, newChatData).then(() => {
           setNewChatName('');
-          const messageRef = push(ref(database, `/chats/${newChatKey}/messages`));
-          const message : ChatMessage = {
-            content: "Welcome to the chat!",
-            authorId: "bot",
-            timestamp: Date.now()
-          }
+          if (currentUser) {
+            const userChatsRef = ref(database, `/users/${currentUser.uid}/chats`);
+            set(userChatsRef, [...ownedChatIds, newChatKey]);
 
-          set(messageRef, message)
-          .catch((error) => {
-            console.error(error);
-          });
+            const messageRef = push(ref(database, `/chats/${newChatKey}/messages`));
+            const message: ChatMessage = {
+              content: "Welcome to the chat!",
+              authorId: "bot",
+              timestamp: Date.now()
+            }
+
+            set(messageRef, message).catch((error) => {
+              console.error(error);
+            });
+          }
         }).catch((error) => {
           console.error(error);
         });
