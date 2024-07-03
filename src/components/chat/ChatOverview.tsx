@@ -5,8 +5,6 @@ import database, { push, ref, set, checkValue } from "../../services/database";
 import StyledTextBox from "../generic/inputs/StyledTextBox";
 import { ChatMessage } from "./ChatBubble";
 import ChatTile from "./ChatTile";
-import { User } from "firebase/auth";
-import { getAuthState } from "../../services/auth";
 
 export type Chat = {
   id: string;
@@ -27,30 +25,10 @@ interface ChatOverviewProps {
 
 const ChatOverview: FC<ChatOverviewProps> = ({ selectChatHandler, ...props }) => {
   const [newChatName, setNewChatName] = useState<string>('');
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const [ownedChatIds, setOwnedChatIds] = useState<string[]>([]);
   const [availableChats, setAvailableChats] = useState<Chat[]>([]);
   const [selectedChat, setSelectedChat] = useState<Chat | null>(null);
 
   useEffect(() => {
-    getAuthState((user) => {
-      setCurrentUser(user);
-    });
-  }, []);
-
-  useEffect(() => {
-    if (currentUser) {
-      const userRef = ref(database, `/users/${currentUser.uid}`);
-      checkValue(userRef, (snapshot) => {
-        const userData: UserData = snapshot.val();
-        const chatIds = userData.chats || [];
-        setOwnedChatIds(chatIds);
-      });
-    }
-  }, [currentUser]);
-
-  useEffect(() => {
-    if (ownedChatIds.length > 0) {
       const chatRef = ref(database, '/chats');
       checkValue(chatRef, (snapshot) => {
         const data = snapshot.val();
@@ -60,14 +38,9 @@ const ChatOverview: FC<ChatOverviewProps> = ({ selectChatHandler, ...props }) =>
           messages: data[key].messages ? Object.values(data[key].messages) : null
         })) : [];
 
-        const filteredChats = chats.filter((chat) => ownedChatIds.includes(chat.id));
-
-        setAvailableChats(filteredChats);
+        setAvailableChats(chats);
       });
-    } else {
-      setAvailableChats([]);
-    }
-  }, [ownedChatIds]);
+  }, []);
 
   const createChat = () => {
     if (newChatName && newChatName.trim() !== '') {
@@ -82,10 +55,6 @@ const ChatOverview: FC<ChatOverviewProps> = ({ selectChatHandler, ...props }) =>
         const newChatRef = ref(database, `/chats/${newChatKey}`);
         set(newChatRef, newChatData).then(() => {
           setNewChatName('');
-          if (currentUser) {
-            const userChatsRef = ref(database, `/users/${currentUser.uid}/chats`);
-            set(userChatsRef, [...ownedChatIds, newChatKey]);
-
             const messageRef = push(ref(database, `/chats/${newChatKey}/messages`));
             const message: ChatMessage = {
               content: "Welcome to the chat!",
@@ -96,7 +65,6 @@ const ChatOverview: FC<ChatOverviewProps> = ({ selectChatHandler, ...props }) =>
             set(messageRef, message).catch((error) => {
               console.error(error);
             });
-          }
         }).catch((error) => {
           console.error(error);
         });
