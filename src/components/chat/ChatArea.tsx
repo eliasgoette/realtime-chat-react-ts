@@ -10,8 +10,12 @@ interface ChatAreaProps {
     chatId: string;
 }
 
-const ChatArea: FC<ChatAreaProps> = ({ chatId, ...props }) => {
-    const [messages, setMessages] = useState<ChatMessage[]>([]);
+interface ChatMessageWithID extends ChatMessage {
+    id: string;
+}
+
+const ChatArea: FC<ChatAreaProps> = ({ chatId }) => {
+    const [messages, setMessages] = useState<ChatMessageWithID[]>([]);
     const [currentUser, setCurrentUser] = useState<User | null>(null);
 
     useEffect(() => {
@@ -27,7 +31,9 @@ const ChatArea: FC<ChatAreaProps> = ({ chatId, ...props }) => {
 
     const displayLatestMessages = (snapshot: DataSnapshot) => {
         const data = snapshot.val();
-        const latestMessages: ChatMessage[] = data ? Object.values(data) : [];
+        const latestMessages: ChatMessageWithID[] = data
+            ? Object.keys(data).map(id => ({ id: id, ...data[id] }))
+            : [];
         setMessages(latestMessages);
 
         setTimeout(() => {
@@ -40,11 +46,11 @@ const ChatArea: FC<ChatAreaProps> = ({ chatId, ...props }) => {
 
     return (
         <div className={styles.chatArea}>
-            {messages.map((m, i) => (
+            {messages.map((m) => (
                 <ChatBubble
                     message={m}
                     stickToRight={m.authorId === currentUser?.uid}
-                    key={i}
+                    key={m.id}
                 />
             ))}
         </div>

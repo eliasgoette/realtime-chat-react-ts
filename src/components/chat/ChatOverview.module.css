@@ -1,4 +1,4 @@
-@import url("/src/theme.css");
+@import url("../../theme.css");
 
 .chatOverview {
     padding: var(--default-padding);

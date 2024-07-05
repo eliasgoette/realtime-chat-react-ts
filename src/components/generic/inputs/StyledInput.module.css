@@ -1,4 +1,4 @@
-@import url("/src/theme.css");
+@import url("../../../theme.css");
 
 .styledInput {
     color: var(--input-primary-color);

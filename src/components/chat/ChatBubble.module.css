@@ -1,4 +1,4 @@
-@import url("/src/theme.css");
+@import url("../../theme.css");
 
 .chatBubble {
     background-color: var(--background-elevated-color);
