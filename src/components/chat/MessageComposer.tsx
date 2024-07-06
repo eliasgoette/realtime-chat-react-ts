@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, KeyboardEvent, useState } from "react";
 import styles from "./MessageComposer.module.css";
 import StyledTextBox from "../generic/inputs/StyledTextBox";
 import StyledButton from "../generic/inputs/StyledButton";
@@ -19,7 +19,7 @@ const MessageComposer : FC<MessageComposerProps> = ({sendMessageHandler}) => {
 
     return(
         <div className={styles.messageComposer}>
-            <StyledTextBox value={message ?? ''} placeholder="Message" valueChangedHandler={(e) => setMessage(e.target.value)}/>
+            <StyledTextBox value={message ?? ''} placeholder="Message" valueChangedHandler={(e) => setMessage(e.target.value)} enterKeyHandler={sendMessage}/>
             <StyledButton text="Send" clickHandler={sendMessage}/>
         </div>
     );

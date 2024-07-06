@@ -47,7 +47,7 @@ function App() {
           {selectedChatId ? (
             <ChatArea chatId={selectedChatId} />
           ) : (
-            <h2>Please select a chat.</h2>
+            <h2 className='noChatSelectedMessage'>Please select a chat.</h2>
           )}
           {selectedChatId && <MessageComposer sendMessageHandler={onSendMessage} />}
         </>

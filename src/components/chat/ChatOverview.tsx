@@ -84,6 +84,7 @@ const ChatOverview: FC<ChatOverviewProps> = ({ selectChatHandler, ...props }) =>
           placeholder="New chat name"
           value={newChatName}
           valueChangedHandler={e => setNewChatName(e.target.value)}
+          enterKeyHandler={createChat}
         />
         <StyledButton text="Create chat" clickHandler={createChat} />
       </div>

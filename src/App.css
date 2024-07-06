@@ -16,6 +16,12 @@ body {
     padding-bottom: 10em;
 }
 
+.noChatSelectedMessage {
+    margin: 1em;
+    /* padding: var(--default-padding); */
+}
+
 .notSignedInMessage {
     margin: 1em;
+    /* padding: var(--default-padding); */
 }
