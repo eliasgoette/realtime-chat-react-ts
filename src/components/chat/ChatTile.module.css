@@ -9,9 +9,8 @@
     align-items: center;
     justify-content: center;
 
-    width: fit-content;
+    width: 100%;
 
-    margin: 0.5em;
     padding: var(--default-padding);
     border-radius: var(--default-border-radius);
 
@@ -22,4 +21,10 @@
 
 .selectedChat:hover, .availableChat:hover {
     filter: var(--default-hover-filter);
+}
+
+@media screen and (min-width: 512px) {
+    .selectedChat, .availableChat {
+        width: fit-content;
+    }
 }

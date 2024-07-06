@@ -41,13 +41,17 @@ function App() {
   return (
     <div className="App">
       <AppHeader/>
-      <ChatOverview selectChatHandler={onSelectedChatChanged}/>
-      {
-        (selectedChatId) ?
-        <ChatArea chatId={selectedChatId}/>
-        : <h2>Please select a chat</h2>
-      }
-      <MessageComposer sendMessageHandler={onSendMessage}/>
+      {currentUser ? (
+        <>
+          <ChatOverview selectChatHandler={onSelectedChatChanged} />
+          {selectedChatId ? (
+            <ChatArea chatId={selectedChatId} />
+          ) : (
+            <h2>Please select a chat.</h2>
+          )}
+          {selectedChatId && <MessageComposer sendMessageHandler={onSendMessage} />}
+        </>
+      ) : <p className='notSignedInMessage'>Please sign in to chat.</p>}
     </div>
   );
 }

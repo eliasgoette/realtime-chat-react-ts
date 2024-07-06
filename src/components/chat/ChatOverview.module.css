@@ -8,14 +8,11 @@
 }
 
 .newChat {
-    width: 100%;
     display: flex;
+    flex-flow: column wrap;
     align-items: center;
     justify-content: flex-start;
-}
-
-.newChat > * {
-    margin-right: 1em;
+    gap: 1em;
 }
 
 .chatOverview {
@@ -26,7 +23,23 @@
     color: var(--secondary-color);
 
     display: flex;
-    flex-flow: row wrap;
+    flex-flow: column nowrap;
     justify-content: flex-start;
     align-items: flex-start;
+    gap: 1em;
+}
+
+@media screen and (min-width: 512px) {
+    .newChat {
+        flex-flow: row nowrap;
+    }
+
+    .newChat:last-child {
+        flex: 0.5;
+    }
+
+    .chatList {
+        flex-flow: row nowrap;
+        overflow-x: auto;
+    }
 }

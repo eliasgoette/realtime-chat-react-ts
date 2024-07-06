@@ -1,5 +1,9 @@
 @import url("theme.css");
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     color: var(--foreground-color);
     background-color: var(--background-color);
@@ -10,4 +14,8 @@ body {
 
 .App {
     padding-bottom: 10em;
+}
+
+.notSignedInMessage {
+    margin: 1em;
 }
