@@ -46,10 +46,11 @@ const ChatArea: FC<ChatAreaProps> = ({ chatId }) => {
 
     return (
         <div className={styles.chatArea}>
-            {messages.map((m) => (
+            {messages.map((m, i) => (
                 <ChatBubble
                     message={m}
                     stickToRight={m.authorId === currentUser?.uid}
+                    isLastInGroup={messages[i + 1]?.authorId !== m.authorId && messages.length > i}
                     key={m.id}
                 />
             ))}

@@ -11,10 +11,11 @@ export type ChatMessage = {
 
 interface ChatBubbleProps {
     message : ChatMessage,
-    stickToRight : boolean | null
+    stickToRight : boolean | null,
+    isLastInGroup : boolean | null
 }
 
-const ChatBubble : FC<ChatBubbleProps> = ({message, stickToRight}) => {
+const ChatBubble : FC<ChatBubbleProps> = ({message, stickToRight, isLastInGroup}) => {
     const [username, setUsername] = useState<string>('');
 
     useEffect(() => {
@@ -29,8 +30,14 @@ const ChatBubble : FC<ChatBubbleProps> = ({message, stickToRight}) => {
     return(
         <div className={`${styles.chatBubble} ${(stickToRight) ? styles.right : styles.left}`}>
             <p className={styles.content}>{message.content}</p>
-            <p className={styles.information}>{username}</p>
             <p className={styles.information}>{new Date(message.timestamp).toLocaleString()}</p>
+            {
+                isLastInGroup 
+                ? <>
+                    <p className={styles.information}>{username}</p>
+                </> 
+                : null
+            }
         </div>
     );
 }
