@@ -12,7 +12,7 @@
     box-shadow: var(--default-box-shadow);
 
     margin: 1em 0;
-    max-width: 70%;
+    max-width: 80%;
 }
 
 .left {
@@ -28,6 +28,7 @@
 
 .content, .information {
     font-weight: lighter;
+    line-break: anywhere;
 }
 
 .information {
