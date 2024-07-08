@@ -27,9 +27,15 @@
 }
 
 .content, .information {
+    display: block;
+    line-break: strict;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+
     font-weight: lighter;
-    line-break: anywhere;
 }
+
 
 .information {
     font-size: x-small;
